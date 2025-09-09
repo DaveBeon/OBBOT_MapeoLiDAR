@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obbot - Mapas Guardados</title>
+    <link rel="stylesheet" href="styles/savemaps.css" />
+  </head>
+  <body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleMobileSidebar()">☰</div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <span id="toggle-icon">◀</span>
+      </div>
+
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🤖</div>
+        <div class="sidebar-title">OBBOT</div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item" onclick="navigateTo('mapping')">
+          <div class="nav-icon">🗺️</div>
+          <span class="nav-text">SLAM Mapping</span>
+        </a>
+
+        <a href="#" class="nav-item active" onclick="navigateTo('saved-maps')">
+          <div class="nav-icon">💾</div>
+          <span class="nav-text">Mapas Guardados</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn" onclick="logout()">
+          <div class="nav-icon">🚪</div>
+          <span class="nav-text">Cerrar Sesión</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <div class="page-header">
+        <h1 class="page-title">Mapas Guardados</h1>
+        <div class="header-actions">
+          <div class="search-box">
+            <div class="search-icon">🔍</div>
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Buscar mapas..."
+              id="searchInput"
+              oninput="filterMaps()"
+            />
+          </div>
+          <a href="#" class="btn-primary" onclick="createNewMap()">
+            <span>➕</span>
+            Crear Nuevo Mapa
+          </a>
+        </div>
+      </div>
+
+      <div class="maps-container" id="mapsContainer">
+        <!-- Maps will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Modal for Map Details -->
+    <div class="modal" id="mapModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="modalTitle">Detalles del Mapa</h3>
+          <button class="modal-close" onclick="closeModal()">✕</button>
+        </div>
+        <div class="modal-map-view">
+          <canvas id="modalCanvas" width="600" height="400"></canvas>
+        </div>
+        <div class="modal-details">
+          <div class="detail-section">
+            <h4>📊 Información General</h4>
+            <ul class="detail-list" id="generalInfo">
+              <!-- Details populated by JS -->
+            </ul>
+          </div>
+          <div class="detail-section">
+            <h4>🔧 Detalles Técnicos</h4>
+            <ul class="detail-list" id="technicalInfo">
+              <!-- Details populated by JS -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script/maps.js"></script>
+  </body>
+</html>

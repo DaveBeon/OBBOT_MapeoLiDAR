@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obbot - Robot SLAM Mapping</title>
+    <link rel="stylesheet" href="./styles/index.css" />
+  </head>
+  <body>
+    <!-- Navegación -->
+    <nav class="navbar" id="navbar">
+      <div class="logo">
+        <div class="logo-icon">🤖</div>
+        <span>OBBOT</span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#caracteristicas">Características</a></li>
+        <li><a href="#especificaciones">Especificaciones</a></li>
+      </ul>
+      <a href="#" class="login-btn" onclick="showLogin()">Iniciar Sesión</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+      <div class="robot-visualization"></div>
+      <div class="hero-content">
+        <div class="hero-subtitle">Tecnología SLAM</div>
+        <h1 class="hero-title">OBBOT</h1>
+        <p class="hero-description">
+          Robot controlado de forma remota, equipado con tecnología LiDAR para mapeo y navegación en tiempo real.
+          Diseñado especialmente para inspeccionar y mapear obras y sitios de construcción
+        </p>
+        <div class="hero-buttons">
+          <a href="#" class="btn-primary" onclick="showLogin()">Acceder al Sistema</a>
+          <a href="#caracteristicas" class="btn-secondary">Conocer Más</a>
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-number">360°</span>
+            <span class="stat-label">Escaneo LiDAR</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">5m</span>
+            <span class="stat-label">Rango de Detección</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Real-Time</span>
+            <span class="stat-label">Mapeo SLAM</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="caracteristicas">
+      <div class="container">
+        <h2 class="section-title">Características Principales</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">🗺️</div>
+            <h3 class="feature-title">SLAM Mapping</h3>
+            <p class="feature-description">
+              Algoritmos avanzados de localización y mapeo simultáneo.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">📱</div>
+            <h3 class="feature-title">Control Remoto</h3>
+            <p class="feature-description">
+              Interface web intuitiva para monitoreo y control remoto del robot desde cualquier dispositivo.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">⚡</div>
+            <h3 class="feature-title">Tiempo Real</h3>
+            <p class="feature-description">
+              Procesamiento de datos en tiempo real para respuesta inmediata y mapeo dinámico.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Specs Section -->
+    <section class="tech-specs" id="especificaciones">
+      <div class="container">
+        <h2 class="section-title">Especificaciones Técnicas</h2>
+        <div class="specs-content">
+          <div>
+            <ul class="specs-list">
+              <li>
+                <span class="spec-label">Procesador:</span>
+                <span>NodeMCU ESP32 WROOM32 </span>
+              </li>
+              <li>
+                <span class="spec-label">Plataforma:</span>
+                <span>Ti-RSLK MAX </span>
+              </li>
+              <li>
+                <span class="spec-label">Sensor LiDAR:</span>
+                <span>360° | Rango 5m | 5400 RPM</span>
+              </li>
+              <li>
+                <span class="spec-label">Conectividad:</span>
+                <span>WiFi 802.11 b/g/n </span>
+              </li>
+              <li>
+                <span class="spec-label">Batería:</span>
+                <span>Li-ion 4800 mAh 7.4v | AA x6 </span>
+              </li>
+              <li>
+                <span class="spec-label">Sistema Operativo:</span>
+                <span>FreeRTOS + Microsoft Windows 10 </span>
+              </li>
+            </ul>
+          </div>
+          <div class="specs-visual">
+            <div class="lidar-demo"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contacto">
+      <div class="footer-content">
+        <p class="footer-text">
+          Realizado para cumplir con los requisitos del proyecto de grado de 
+          Ingeniería en Telemática de la Pontificia Universidad Católica Madre y Maestra (PUCMM).
+        </p>
+        <p class="footer-text">© 2025 Obbot - Robot SLAM Mapping System</p>
+      </div>
+    </footer>
+
+    <script src="script/index.js"></script>
+  </body>
+</html>

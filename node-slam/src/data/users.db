@@ -1,0 +1,2 @@
+{"firstName":"John","lastName":"Doe","username":"johndoe","password":"1234","role":"user","active":true,"createdAt":{"$$date":1756074029681},"_id":"3Ixyj64BhMwi7mvI"}
+{"$$indexCreated":{"fieldName":"username","unique":true,"sparse":false}}

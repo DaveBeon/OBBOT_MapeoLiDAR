@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Obbot - SLAM Mapping System</title>
+    <link rel="stylesheet" href="styles/slam.css" />
+  </head>
+  <body>
+    <!-- Mobile Menu Toggle -->
+    <div class="mobile-menu-toggle" onclick="toggleMobileSidebar()">☰</div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-toggle" onclick="toggleSidebar()">
+        <span id="toggle-icon">◀</span>
+      </div>
+
+      <div class="sidebar-header">
+        <div class="sidebar-logo">🤖</div>
+        <div class="sidebar-title">OBBOT</div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active" onclick="navigateTo('mapping')">
+          <div class="nav-icon">🗺️</div>
+          <span class="nav-text">SLAM Mapping</span>
+        </a>
+
+        <a href="#" class="nav-item" onclick="navigateTo('saved-maps')">
+          <div class="nav-icon">💾</div>
+          <span class="nav-text">Mapas Guardados</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="#" class="logout-btn" onclick="logout()">
+          <div class="nav-icon">🚪</div>
+          <span class="nav-text">Cerrar Sesión</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+      <div class="page-header">
+        <h1 class="page-title" id="page-title">Bienvenido a OBBOT</h1>
+        <div class="system-status">
+          <div class="status-dot status-online" id="system-status"></div>
+          <span>Sistema Online</span>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="map-container">
+          <div class="map-header">
+            <div class="map-title">
+              <span>🗺️</span>
+              Mapa en Tiempo Real
+            </div>
+            <div style="font-size: 0.9rem; color: #8892b0">
+              Estado: <span id="mapping-status" style="color: #00ff96">Listo</span>
+            </div>
+          </div>
+          <canvas id="mapCanvas"></canvas>
+
+          <div class="map-info">
+            <div>Zoom: <span id="zoom-level">1.0x</span></div>
+            <div>Points: <span id="point-count">0</span></div>
+            <div>Robot: (<span id="robot-x">0</span>, <span id="robot-y">0</span>)</div>
+            <div>θ: <span id="robot-theta">0°</span></div>
+          </div>
+        </div>
+
+        <div class="controls-panel">
+          <div class="status-section">
+            <h3>🔗 Estado de Conexión</h3>
+            <div>
+              <span class="status-indicator status-offline" id="websocket-status"></span>
+              WebSocket: <span id="websocket-text">Desconectado</span>
+            </div>
+            <div>
+              <span class="status-indicator status-offline" id="imu-status"></span>
+              IMU: <span id="imu-text">Offline</span>
+            </div>
+            <div>
+              <span class="status-indicator status-offline" id="lidar-status"></span>
+              LIDAR: <span id="lidar-text">Offline</span>
+            </div>
+            <div id="last-update-display">Última actualización: Nunca</div>
+          </div>
+
+          <div class="status-section">
+            <h3>🧭 Datos IMU</h3>
+            <div class="compass">
+              <div class="compass-needle" id="compass-needle"></div>
+            </div>
+            <div class="data-grid">
+              <div class="data-item">
+                <div class="data-label">Accel X</div>
+                <div class="data-value" id="imu-accel-x">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Accel Y</div>
+                <div class="data-value" id="imu-accel-y">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Accel Z</div>
+                <div class="data-value" id="imu-accel-z">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Gyro X</div>
+                <div class="data-value" id="imu-gyro-x">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Gyro Y</div>
+                <div class="data-value" id="imu-gyro-y">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Gyro Z</div>
+                <div class="data-value" id="imu-gyro-z">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Mag X</div>
+                <div class="data-value" id="imu-mag-x">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Mag Y</div>
+                <div class="data-value" id="imu-mag-y">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Mag Z</div>
+                <div class="data-value" id="imu-mag-z">0.00</div>
+              </div>
+              <div class="data-item">
+                <div class="data-label">Azimut</div>
+                <div class="data-value" id="imu-azimut">0.00°</div>
+              </div>
+            </div>
+
+            <div style="margin-top: 15px">
+              <button class="button" onclick="calibrateIMU('accel')">Cal. Accel</button>
+              <button class="button" onclick="calibrateIMU('mag')">Cal. Mag</button>
+              <button class="button" onclick="calibrateIMU('gyro')">Cal. Gyro</button>
+            </div>
+          </div>
+
+          <div class="status-section">
+            <h3>🗺️ Control SLAM</h3>
+            <button class="button" onclick="startMapping()" id="start-mapping">Iniciar Mapeo</button>
+            <button class="button danger" onclick="stopMapping()" id="stop-mapping">Detener Mapeo</button>
+            <button class="button" onclick="resetMap()">Resetear Mapa</button>
+            <button class="button" onclick="saveMap()">Guardar Mapa</button>
+            <button class="button" onclick="loadMap()">Cargar Mapa</button>
+          </div>
+
+          <div class="slam-stats">
+            <h3>📊 Estadísticas SLAM</h3>
+            <div>Calidad del Mapeo: <span id="mapping-quality">0%</span></div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="quality-progress" style="width: 0%"></div>
+            </div>
+            <div>Loop Closures: <span id="loop-closures">0</span></div>
+            <div>Landmarks: <span id="landmarks">0</span></div>
+            <div>Longitud de Trayectoria: <span id="trajectory-length">0 cm</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script/mapping.js"></script>
+  </body>
+</html>

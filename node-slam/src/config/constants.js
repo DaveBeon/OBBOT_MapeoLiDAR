@@ -1,0 +1,9 @@
+module.exports = {
+  HOST: '0.0.0.0',
+  TCP_PORT: 8000,
+  HTTP_PORT: 5000,
+  START_BYTE: 0xAA,
+  IMU_PACKET_ID: 0x01,
+  LIDAR_PACKET_ID: 0x02,
+  ENCODERS_PACKET_ID: 0x03,
+};

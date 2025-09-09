@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SLAM Mapping System</title>
+    <link rel="stylesheet" href="styles/mapping.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="map-container">
+        <canvas id="mapCanvas"></canvas>
+
+        <div class="map-info">
+          <div>Zoom: <span id="zoom-level">1.0x</span></div>
+          <div>Points: <span id="point-count">0</span></div>
+          <div>Robot: (<span id="robot-x">0</span>, <span id="robot-y">0</span>)</div>
+          <div>θ: <span id="robot-theta">0°</span></div>
+        </div>
+      </div>
+
+      <div class="controls-panel">
+        <div class="status-section">
+          <h3>🔗 Connection Status</h3>
+          <div>
+            <span class="status-indicator status-offline" id="websocket-status"></span>
+            WebSocket: <span id="websocket-text">Disconnected</span>
+          </div>
+          <div>
+            <span class="status-indicator status-offline" id="imu-status"></span>
+            IMU: <span id="imu-text">Offline</span>
+          </div>
+          <div>
+            <span class="status-indicator status-offline" id="lidar-status"></span>
+            LIDAR: <span id="lidar-text">Offline</span>
+          </div>
+          <div id="last-update-display">Last update: Never</div>
+        </div>
+
+        <div class="status-section">
+          <h3>🧭 IMU Data</h3>
+          <div class="compass">
+            <div class="compass-needle" id="compass-needle"></div>
+          </div>
+          <div class="data-grid">
+            <div class="data-item">
+              <div class="data-label">Accel X</div>
+              <div class="data-value" id="imu-accel-x">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Accel Y</div>
+              <div class="data-value" id="imu-accel-y">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Accel Z</div>
+              <div class="data-value" id="imu-accel-z">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Gyro X</div>
+              <div class="data-value" id="imu-gyro-x">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Gyro Y</div>
+              <div class="data-value" id="imu-gyro-y">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Gyro Z</div>
+              <div class="data-value" id="imu-gyro-z">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Mag X</div>
+              <div class="data-value" id="imu-mag-x">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Mag Y</div>
+              <div class="data-value" id="imu-mag-y">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Mag Z</div>
+              <div class="data-value" id="imu-mag-z">0.00</div>
+            </div>
+            <div class="data-item">
+              <div class="data-label">Azimut</div>
+              <div class="data-value" id="imu-azimut">0.00°</div>
+            </div>
+          </div>
+
+          <div style="margin-top: 15px">
+            <button class="button" onclick="calibrateIMU('accel')">Cal. Accel</button>
+            <button class="button" onclick="calibrateIMU('mag')">Cal. Mag</button>
+            <button class="button" onclick="calibrateIMU('gyro')">Cal. Gyro</button>
+          </div>
+        </div>
+
+        <div class="status-section">
+          <h3>🗺️ SLAM Control</h3>
+          <button class="button" onclick="slam.startMapping()" id="start-mapping">Start Mapping</button>
+          <button class="button danger" onclick="slam.stopMapping()" id="stop-mapping">Stop Mapping</button>
+          <button class="button" onclick="slam.resetMap()">Reset Map</button>
+          <button class="button" onclick="slam.saveMap()">Save Map</button>
+          <button class="button" onclick="slam.loadMap()">Load Map</button>
+        </div>
+
+        <div class="slam-stats">
+          <h3>📊 SLAM Statistics</h3>
+          <div>Mapping Quality: <span id="mapping-quality">0%</span></div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="quality-progress" style="width: 0%"></div>
+          </div>
+          <div>Loop Closures: <span id="loop-closures">0</span></div>
+          <div>Landmarks: <span id="landmarks">0</span></div>
+          <div>Trajectory Length: <span id="trajectory-length">0 cm</span></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script/mapping.js"></script>
+  </body>
+</html>
